@@ -60,7 +60,8 @@
 	<head>
 		<title>Generador de mapas!</title>
 		<meta charset="utf-8">
-		<link href="style.css" type="text/css" rel="stylesheet" />
+		<link href="css/style.css" type="text/css" rel="stylesheet" />
+		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 	</head>
 	<body>
 		<div id="container">
@@ -91,6 +92,6 @@
 			</div>
 		</div>
 		<ul id="menu"><?php echo $menu; ?></ul>
-		<script type="text/javascript" src="scripts.js"></script>
+		<script type="text/javascript" src="js/scripts.js"></script>
 	</body>
 </html>
