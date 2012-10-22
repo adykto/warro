@@ -37,7 +37,7 @@
 	if($createTiles) {
 		$mapImage = imagecreatefromjpeg($mapFileName);
 
-		$thumbHeight = 24;
+		$thumbHeight = 124;
 		$thumbWidth = floor($mapWidth * ( $thumbHeight / $mapHeight ));
 
 		$thumbImage = imagecreatetruecolor($thumbWidth, $thumbHeight);
