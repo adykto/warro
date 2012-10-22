@@ -99,7 +99,7 @@
 									imagecopy($tileImage, $mapImage, 0, 0, $mapOffsetX, $mapOffsetY, $tileWidth, $tileHeight);
 									imagejpeg($tileImage, $tileFileName);
 								}
-								echo '<img src="css/images/empty.png" class="lazy"  data-original=', $tileFileName,' />';
+								echo '<img src="css/images/empty.png" data-original=', $tileFileName,' />';
 							}
 						}
 

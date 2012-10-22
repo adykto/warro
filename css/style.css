@@ -57,11 +57,13 @@ body {
 
 		#minimapVisor {
 			box-shadow: 0 0 200px 100px #000;
+			cursor: move;
 			display: block;
 			left: 0;
 			opacity: 0.7;
 			position: absolute;
 			top: 0;
+			z-index: 999;
 		}
 
 	#menu {

@@ -7,18 +7,53 @@ $(document).ready(function() {
 		stop: refreshMinimap
 	});
 
-	$(".lazy").lazyload( {
-		effect       : "fadeIn",
-		failure_limit : $(".lazy").length+10
+	$('#minimapVisor').draggable({
+		containment: 'parent',
+		stop: visorDrag
 	});
 
-	$('body').animate({scrollTop: "1px", scrollLeft: "1px"}, 1);
-	$('body').animate({scrollTop: "0px", scrollLeft: "0px"}, 1);
+	$("#map img").lazyload( {
+		effect       : "fadeIn",
+		failure_limit : $("#map img").length+10
+	});
 
 	$('#minimap').on('click', mapClicked);
 	$(window).resize(refreshMinimap);
 	refreshMinimap();
 });
+
+function visorDrag(e) {
+	var mapDiv = $('#map'),
+		mapHeight = mapDiv.height(),
+		mapWidth = mapDiv.width(),
+		minimapHeight = $('#minimap').height(),
+		minimapWidth = $('#minimap').width(),
+		visorScale = mapWidth / minimapWidth,
+		visibleHeight = $('#container').height(),
+		visibleWidth = $('#container').width(),
+		x = mapWidth - Math.ceil((this.offsetLeft) * visorScale) - visibleWidth,
+		y = mapHeight - Math.ceil((this.offsetTop) * visorScale) - visibleHeight;
+
+	if(x < 0) {
+		x = 0;
+	} else if(x > (mapWidth - visibleWidth)) {
+		x = mapWidth - visibleWidth;
+	}
+
+	if(y < 0) {
+		y = 0;
+	} else if(y > (mapHeight - visibleHeight)) {
+		y = mapHeight - visibleHeight;
+	}
+
+	mapDiv.parent().css({
+		'left': x + 'px',
+		'top': y + 'px',
+	});
+
+	$(window).resize();
+	return true;
+}
 
 function mapClicked(e) {
 	var mapDiv = $('#map'),
