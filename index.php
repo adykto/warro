@@ -58,6 +58,7 @@
 		$thumbImage = imagecreatetruecolor($thumbWidth, $thumbHeight);
 
 		imagecopyresampled($thumbImage, $mapImage, 0, 0, 0, 0, $thumbWidth, $thumbHeight, $mapWidth, $mapHeight);
+		imageinterlace($thumbImage, true);
 		imagejpeg($thumbImage, $thumbFileName);
 		imagedestroy($thumbImage);
 	}
@@ -87,7 +88,10 @@
 			<div class="map-viewport">
 				<div id="map" style="height: <?php echo $mapHeight; ?>px; width: <?php echo $mapWidth; ?>px; background-image: url('<?php echo $thumbFileName; ?>')">
 					<div style="height: <?php echo $tilesCountY * $tileHeight; ?>px; width: <?php echo $tilesCountX * $tileWidth; ?>px;">					<?php
-						$tileImage = imagecreatetruecolor($tileWidth, $tileHeight);
+						if($createTiles) {
+							$tileImage = imagecreatetruecolor($tileWidth, $tileHeight);
+							imageinterlace($tileImage, true);
+						}
 
 						for($tileOffsetY = 0; $tileOffsetY < $tilesCountY; $tileOffsetY++) {
 							for($tileOffsetX = 0; $tileOffsetX < $tilesCountX; $tileOffsetX++) {
@@ -103,9 +107,8 @@
 							}
 						}
 
-						imagedestroy($tileImage);
-
-						if($mapImage != null) {
+						if($createTiles) {
+							imagedestroy($tileImage);
 							imagedestroy($mapImage);
 						}
 
