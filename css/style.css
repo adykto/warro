@@ -24,6 +24,8 @@ body {
 	}
 
 	#map {
+		background-image: url('maps/map_thumb.jpg');
+		background-size: 100%;
 		cursor: hand;
 		position:absolute;
 	}
@@ -42,6 +44,7 @@ body {
 		}
 
 	#minimap {
+		border: 1px solid #999;
 		box-shadow: 0 0 30px 3px #000;
 		display: block;
 		height: 124px;

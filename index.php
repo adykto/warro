@@ -85,7 +85,7 @@
 	<body>
 		<div id="container">
 			<div class="map-viewport">
-				<div id="map" style="height: <?php echo $mapHeight; ?>px; width: <?php echo $mapWidth; ?>px;">
+				<div id="map" style="height: <?php echo $mapHeight; ?>px; width: <?php echo $mapWidth; ?>px; background-image: url('<?php echo $thumbFileName; ?>')">
 					<div style="height: <?php echo $tilesCountY * $tileHeight; ?>px; width: <?php echo $tilesCountX * $tileWidth; ?>px;">					<?php
 						$tileImage = imagecreatetruecolor($tileWidth, $tileHeight);
 
@@ -99,7 +99,7 @@
 									imagecopy($tileImage, $mapImage, 0, 0, $mapOffsetX, $mapOffsetY, $tileWidth, $tileHeight);
 									imagejpeg($tileImage, $tileFileName);
 								}
-								echo '<img src="css/images/grey.gif" class="lazy"  data-original=', $tileFileName,' />';
+								echo '<img src="css/images/empty.png" class="lazy"  data-original=', $tileFileName,' />';
 							}
 						}
 
