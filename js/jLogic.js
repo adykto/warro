@@ -12,8 +12,8 @@ $(document).ready(function() {
 		failure_limit : $(".lazy").length+10
 	});
 
-	$('body').animate({scrollTop: "1px", scrollLeft: "1px"}, 100);
-	$('body').animate({scrollTop: "0px", scrollLeft: "0px"}, 100);
+	$('body').animate({scrollTop: "1px", scrollLeft: "1px"}, 1);
+	$('body').animate({scrollTop: "0px", scrollLeft: "0px"}, 1);
 
 	$('#minimap').on('click', mapClicked);
 	$(window).resize(refreshMinimap);
@@ -49,10 +49,9 @@ function mapClicked(e) {
 	mapDiv.parent().css({
 		'left': x + 'px',
 		'top': y + 'px',
-	}, 100);
+	});
 
 	$(window).resize();
-	refreshMinimap();
 }
 
 function refreshMinimap() {

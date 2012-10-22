@@ -121,8 +121,8 @@ function createViewport(element, options) {
         contentPosition.top = ui.position.top;
         
         /*Hack to force LazyLoad apply its event "appear"*/
-        $('.map-viewport').animate({scrollTop: "2px", scrollLeft: "2px"}, 100);
-        $('.map-viewport').animate({scrollTop: "0px", scrollLeft: "0px"}, 100); 
+        $('.map-viewport').animate({scrollTop: "2px", scrollLeft: "2px"}, 1);
+        $('.map-viewport').animate({scrollTop: "0px", scrollLeft: "0px"}, 1); 
         /*///////////////////////////////////////////////*/
     });
 
