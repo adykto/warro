@@ -39,7 +39,19 @@ body {
 			float: left;
 		}
 
+	#minimap {
+		box-shadow: 0 0 30px 3px #000;
+		display: block;
+		height: 124px;
+		right: 0px;
+		position: absolute;
+		top: 0px;
+		z-index: 9999;
+	}
+
 	#menu {
+		border: 1px solid #999;
+		box-shadow: 0 0 30px 3px #000;
 		left: 0px;
 		line-height: 32px;
 		list-style-type: none;

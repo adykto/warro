@@ -7,12 +7,28 @@
 	$mapsPath = 'maps/';
 	$tilesPath = 'tiles/';
 	$mapName = isset($_GET['name'])?$_GET['name']:'map';
+	$createTiles = true;
+	$minimap = '';
+
+	// crear el menú de mapas
+	if ($mapsHandle = opendir($mapsPath)) {
+		while (false !== ($entry = readdir($mapsHandle))) {
+			if ($entry != "." && $entry != ".." && strpos($entry, '.jpg') > 1 && strpos($entry, '_thumb') < 1) {
+				$entry = basename($entry, '.jpg');
+				$thumbFileName = $mapsPath.$entry.'_thumb.jpg';
+				$menu.= '<li><a href="?name='.$entry.'"><img src="'.$thumbFileName.'" /><span>'.ucwords($entry).'</span></a></li>';
+				if($mapName == null) {
+					$mapName = $entry;					
+				}
+			}
+		}
+		closedir($mapsHandle);
+	}
+
 	$mapFileName = $mapsPath.$mapName.'.jpg';
 	$thumbFileName = $mapsPath.$mapName.'_thumb.jpg';
 	$lockerFile = $mapsPath.$mapName.'.lck';
 	$tileFileTemplate = $tilesPath.$mapName.'_%03d_%03d_%03d.jpg';
-	$createTiles = true;
-	$mapImage = null;
 
 	// checar si el archivo ya había sido partido en tiles:
 	if (file_exists($mapFileName)) {
@@ -31,31 +47,19 @@
 	}
 
 	list($mapWidth, $mapHeight, $mapType, $mapAttr) = getimagesize($mapFileName);
+	$thumbHeight = 124;
+	$thumbWidth = floor($mapWidth * ( $thumbHeight / $mapHeight ));
 	$tilesCountX = ceil($mapWidth / $tileWidth);
 	$tilesCountY = ceil($mapHeight / $tileHeight);
+	$minimapStyle = 'width:'.$thumbWidth.'px;background-image:url('.$thumbFileName.');';
 
 	if($createTiles) {
 		$mapImage = imagecreatefromjpeg($mapFileName);
-
-		$thumbHeight = 124;
-		$thumbWidth = floor($mapWidth * ( $thumbHeight / $mapHeight ));
-
 		$thumbImage = imagecreatetruecolor($thumbWidth, $thumbHeight);
+
 		imagecopyresampled($thumbImage, $mapImage, 0, 0, 0, 0, $thumbWidth, $thumbHeight, $mapWidth, $mapHeight);
 		imagejpeg($thumbImage, $thumbFileName);
 		imagedestroy($thumbImage);
-	}
-
-	// crear el menú de mapas
-	if ($mapsHandle = opendir($mapsPath)) {
-		while (false !== ($entry = readdir($mapsHandle))) {
-			if ($entry != "." && $entry != ".." && strpos($entry, '.jpg') > 1 && strpos($entry, '_thumb') < 1) {
-				$entry = basename($entry, '.jpg');
-				$thumbFileName = $mapsPath.$entry.'_thumb.jpg';
-				$menu.= '<li><a href="?name='.$entry.'"><img src="'.$thumbFileName.'" /><span>'.ucwords($entry).'</span></a></li>';
-			}
-		}
-		closedir($mapsHandle);
 	}
 ?><html>
 	<head>
@@ -105,8 +109,13 @@
 						//echo '<div class="lazy" style="background: url(', $tileFileName, '); height:', $tileHeight, 'px;width:', $tileWidth, 'px;"></div>';
 					}
 				}
+				
 				imagedestroy($tileImage);
-				if($mapImage != null) { imagedestroy($mapImage); }
+				
+				if($mapImage != null) { 
+					imagedestroy($mapImage); 
+				}
+
 				if($createTiles) {
 					file_put_contents($lockerFile, $newLock);
 				}
@@ -115,6 +124,7 @@
 		  </div>
 		</div>
 		<ul id="menu"><?php echo $menu; ?></ul>
+		<div id="minimap" style="<?php echo $minimapStyle; ?>"></div>
 		<!--<script type="text/javascript" src="js/scripts.js"></script>-->
 		<script type="text/javascript" src="js/jLogic.js"></script>
 	</body>
