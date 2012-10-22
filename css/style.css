@@ -24,10 +24,16 @@ body {
 	}
 
 	#map {
-		cursor: cursor;
 		cursor: hand;
 		position:absolute;
 	}
+		#map div {
+			display: block;
+			left: 0 ;
+			overflow: hidden;
+			position: absolute;
+			top: 0;
+		}
 
 		#map img {
 			float: left;
@@ -40,10 +46,21 @@ body {
 		display: block;
 		height: 124px;
 		right: 0px;
+		overflow: hidden;
 		position: absolute;
 		top: 0px;
 		z-index: 9999;
 	}
+
+		#minimapVisor {
+			box-shadow: 0 0 100px 100px #000;
+			border: 1px solid #666;
+			display: block;
+			left: 0;
+			opacity: 0.7;
+			position: absolute;
+			top: 0;
+		}
 
 	#menu {
 		border: 1px solid #999;

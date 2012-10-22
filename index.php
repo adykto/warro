@@ -85,39 +85,40 @@
 	<body>
 		<div id="container">
 			<div class="map-viewport">
-				<div id="map" style="height: <?php echo $tilesCountY * $tileHeight; ?>px; width: <?php echo $tilesCountX * $tileWidth; ?>px;">
-				<?php
-					$tileImage = imagecreatetruecolor($tileWidth, $tileHeight);
+				<div id="map" style="height: <?php echo $mapHeight; ?>px; width: <?php echo $mapWidth; ?>px;">
+					<div style="height: <?php echo $tilesCountY * $tileHeight; ?>px; width: <?php echo $tilesCountX * $tileWidth; ?>px;">					<?php
+						$tileImage = imagecreatetruecolor($tileWidth, $tileHeight);
 
-					for($tileOffsetY = 0; $tileOffsetY < $tilesCountY; $tileOffsetY++) {
-						for($tileOffsetX = 0; $tileOffsetX < $tilesCountX; $tileOffsetX++) {
-							$tileFileName = sprintf($tileFileTemplate, 1, $tileOffsetX, $tileOffsetY);
+						for($tileOffsetY = 0; $tileOffsetY < $tilesCountY; $tileOffsetY++) {
+							for($tileOffsetX = 0; $tileOffsetX < $tilesCountX; $tileOffsetX++) {
+								$tileFileName = sprintf($tileFileTemplate, 1, $tileOffsetX, $tileOffsetY);
 
-							if($createTiles) {
-								$mapOffsetX = $tileOffsetX * $tileWidth;
-								$mapOffsetY = $tileOffsetY * $tileWidth;
-								imagecopy($tileImage, $mapImage, 0, 0, $mapOffsetX, $mapOffsetY, $tileWidth, $tileHeight);
-								imagejpeg($tileImage, $tileFileName);
+								if($createTiles) {
+									$mapOffsetX = $tileOffsetX * $tileWidth;
+									$mapOffsetY = $tileOffsetY * $tileWidth;
+									imagecopy($tileImage, $mapImage, 0, 0, $mapOffsetX, $mapOffsetY, $tileWidth, $tileHeight);
+									imagejpeg($tileImage, $tileFileName);
+								}
+								echo '<img src="css/images/grey.gif" class="lazy"  data-original=', $tileFileName,' />';
 							}
-							echo '<img src="css/images/grey.gif" class="lazy"  data-original=', $tileFileName,' />';
 						}
-					}
 
-					imagedestroy($tileImage);
+						imagedestroy($tileImage);
 
-					if($mapImage != null) {
-						imagedestroy($mapImage);
-					}
+						if($mapImage != null) {
+							imagedestroy($mapImage);
+						}
 
-					if($createTiles) {
-						file_put_contents($lockerFile, $newLock);
-					}
-				?>
+						if($createTiles) {
+							file_put_contents($lockerFile, $newLock);
+						}
+					?>
+					</div>
 				</div>
 			</div>
 		</div>
 		<ul id="menu"><?php echo $menu; ?></ul>
-		<div id="minimap" style="<?php echo $minimapStyle; ?>"></div>
+		<div id="minimap" style="<?php echo $minimapStyle; ?>"><div id="minimapVisor"></div></div>
 		<script type="text/javascript" src="js/jLogic.js"></script>
 	</body>
 
