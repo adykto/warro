@@ -3,9 +3,9 @@ var initialX = 0, initialY = 0, moving = false;
 window.onload = function() {
 	var container = document.getElementById('container')
 	container.style.display = 'block';
-	container.addEventListener('mousedown', mapClick, false);
-	window.addEventListener('mousemove', mapMove, true);
-	window.addEventListener('mouseup', mapRelease, false);
+	//container.addEventListener('mousedown', mapClick, false);
+	//window.addEventListener('mousemove', mapMove, true);
+	//window.addEventListener('mouseup', mapRelease, false);
 };
 
 function mapClick(e) {

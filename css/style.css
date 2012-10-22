@@ -5,23 +5,34 @@ body {
 	margin: 0;
 	padding: 0;
 	width: 100%;
+	overflow:hidden;
+}
+
+.map-viewport {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
 }
 
 	#container {
-		display: none;
+		
 		height: 100%;
 		left: 0;
-		overflow: hidden;
+		/*overflow: hidden;
+		overflow:scroll;*/
 		position: absolute;
 		top: 0;
 		width: 100%;
 	}
 
 	#map {
-		cursor: crosshair;
-		left: 0;
+		cursor: cursor;
+		cursor: hand;
+		position:absolute;
+		/*left: 0;
 		position: absolute;
-		top: 0;
+		top: 0;*/
 	}
 
 		#map div {
