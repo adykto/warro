@@ -1,30 +1,4 @@
 $(document).ready(function() {
-	//$(".placeHolder").css("height", $("body").css("height")+"px");
-	//var w=0; var h=0;
-	/*$('#map img.lazy').each( function(){
-		w += $(this).width();
-		h += $(this).height();
-	});*/
-
-	//$('#map').width( w );
-	//$('#map').height( h );
-
-	/*$("#map").css({
-
-	});*/
-
-	var heightBrowser= $(window).height();
-
-	/*$('#map').rmap({
-		height : heightBrowser,
-		image : {
-			src : ''
-		},
-		nav_ui : {
-			autohide : false
-		}
-	});*/
-
 	var element = $('.map-viewport').viewport();
 	var content = element.viewport('content');
 
@@ -35,28 +9,51 @@ $(document).ready(function() {
 
 	$(".lazy").lazyload( {
 		effect       : "fadeIn",
-	 	//container: $("#container"),
-	 	failure_limit : $(".lazy").length+10
- 	});
-
-	//$("div").css("overflow","");
-
-	/*$("img.lazy").each(function() {
-		$(this).attr("src", $(this).data("original"));
-	});*/
-
-	/*content.scraggable({
-		sensitivity: 5,
-		containment: 'parent'
-	});*/
-
-	//$("#map").mapz();
+		failure_limit : $(".lazy").length+10
+	});
 
 	$('body').animate({scrollTop: "1px", scrollLeft: "1px"}, 100);
 	$('body').animate({scrollTop: "0px", scrollLeft: "0px"}, 100);
+
+	$('#minimap').on('click', mapClicked);
 	$(window).resize(refreshMinimap);
 	refreshMinimap();
 });
+
+function mapClicked(e) {
+	var mapDiv = $('#map'),
+		mapHeight = mapDiv.height(),
+		mapWidth = mapDiv.width(),
+		minimapHeight = $('#minimap').height(),
+		minimapWidth = $('#minimap').width(),
+		visorScale = mapWidth / minimapWidth,
+		visibleHeight = $('#container').height(),
+		visibleWidth = $('#container').width(),
+		x = mapWidth - Math.ceil((e.pageX - this.offsetLeft) * visorScale) - (visibleWidth / 2),
+		y = mapHeight - Math.ceil((e.pageY - this.offsetTop) * visorScale) - (visibleHeight / 2);
+
+	if(x < (visibleWidth / 2)) {
+		x = 0;
+		console.log('x >');
+	} else if(x > (mapWidth - visibleWidth)) {
+		x = mapWidth - visibleWidth;
+	}
+
+	if(y < (visibleHeight / 2)) {
+		y = 0;
+		console.log('y >');
+	} else if(y > (mapHeight - visibleHeight)) {
+		y = mapHeight - visibleHeight;
+	}
+
+	mapDiv.parent().css({
+		'left': x + 'px',
+		'top': y + 'px',
+	}, 100);
+
+	$(window).resize();
+	refreshMinimap();
+}
 
 function refreshMinimap() {
 	var mapDiv = $('#map'),

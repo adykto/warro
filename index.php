@@ -18,7 +18,7 @@
 				$thumbFileName = $mapsPath.$entry.'_thumb.jpg';
 				$menu.= '<li><a href="?name='.$entry.'"><img src="'.$thumbFileName.'" /><span>'.ucwords($entry).'</span></a></li>';
 				if($mapName == null) {
-					$mapName = $entry;					
+					$mapName = $entry;
 				}
 			}
 		}
@@ -63,7 +63,7 @@
 	}
 ?><html>
 	<head>
-		<title>Generador de mapas!</title>
+		<title>Warro - Map Navigator</title>
 		<meta charset="utf-8">
 		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0; user-scalable=0;">
 		<script src="http://code.jquery.com/jquery-1.8.2.js"></script>

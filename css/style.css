@@ -1,5 +1,5 @@
 body {
-	background: url(../css/images/loading.gif) #000 center center no-repeat;
+	background: #000;
 	font-family: Helvetica, Arial, sans-serif;
 	height: 100%;
 	margin: 0;
@@ -44,11 +44,11 @@ body {
 		}
 
 	#minimap {
-		border: 1px solid #999;
 		box-shadow: 0 0 30px 3px #000;
 		display: block;
 		height: 124px;
 		right: 0px;
+		opacity: 0.9;
 		overflow: hidden;
 		position: absolute;
 		top: 0px;
@@ -56,8 +56,7 @@ body {
 	}
 
 		#minimapVisor {
-			box-shadow: 0 0 100px 100px #000;
-			border: 1px solid #666;
+			box-shadow: 0 0 200px 100px #000;
 			display: block;
 			left: 0;
 			opacity: 0.7;
@@ -66,7 +65,6 @@ body {
 		}
 
 	#menu {
-		border: 1px solid #999;
 		box-shadow: 0 0 30px 3px #000;
 		left: 0px;
 		line-height: 32px;
@@ -78,7 +76,7 @@ body {
 	}
 
 		#menu li {
-			background: rgba(0,0,0,0.6);
+			background: rgba(0,0,0,0.8);
 			margin: 0;
 			padding: 0;
 		}
