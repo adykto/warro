@@ -13,9 +13,9 @@
 	// crear el menú de mapas
 	if ($mapsHandle = opendir($mapsPath)) {
 		while (false !== ($entry = readdir($mapsHandle))) {
-			if ($entry != "." && $entry != ".." && strpos($entry, '.jpg') > 1 && strpos($entry, '_thumb') < 1) {
+			if ($entry != "." && $entry != ".." && strpos($entry, '.jpg') > 1 && strpos($entry, 'thumb') < 1) {
 				$entry = basename($entry, '.jpg');
-				$thumbFileName = $mapsPath.$entry.'_thumb.jpg';
+				$thumbFileName = $mapsPath.'_thumb_'.$entry.'.jpg';
 				$menu.= '<li><a href="?name='.$entry.'"><img src="'.$thumbFileName.'" /><span>'.ucwords($entry).'</span></a></li>';
 				if($mapName == null) {
 					$mapName = $entry;
@@ -26,14 +26,14 @@
 	}
 
 	$mapFileName = $mapsPath.$mapName.'.jpg';
-	$thumbFileName = $mapsPath.$mapName.'_thumb.jpg';
-	$lockerFile = $mapsPath.$mapName.'.lck';
+	$thumbFileName = $mapsPath.'_thumb_'.$mapName.'.jpg';
+	$lockerFile = $mapsPath.'_md5_'.$mapName.'.lck';
 	$tileFileTemplate = $tilesPath.$mapName.'_%03d_%03d_%03d.jpg';
 
 	// checar si el archivo ya había sido partido en tiles:
 	if (file_exists($mapFileName)) {
 		$lastLock = null;
-		$newLock = md5(date("FdYHis", filemtime($mapFileName)).filesize($mapFileName));
+		$newLock = md5(($mapFileName).filesize($mapFileName));
 
 		if(file_exists($lockerFile)) {
 			$lastLock = file_get_contents($lockerFile);
@@ -47,11 +47,11 @@
 	}
 
 	list($mapWidth, $mapHeight, $mapType, $mapAttr) = getimagesize($mapFileName);
-	$thumbHeight = 124;
+	$thumbHeight = 1024;
 	$thumbWidth = floor($mapWidth * ( $thumbHeight / $mapHeight ));
 	$tilesCountX = ceil($mapWidth / $tileWidth);
 	$tilesCountY = ceil($mapHeight / $tileHeight);
-	$minimapStyle = 'width:'.$thumbWidth.'px;background-image:url('.$thumbFileName.');';
+	$minimapStyle = 'width:'.($thumbWidth / 8).'px;background-image:url('.$thumbFileName.');';
 
 	if($createTiles) {
 		$mapImage = imagecreatefromjpeg($mapFileName);
