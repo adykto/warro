@@ -16,11 +16,8 @@ body {
 }
 
 	#container {
-		
 		height: 100%;
 		left: 0;
-		/*overflow: hidden;
-		overflow:scroll;*/
 		position: absolute;
 		top: 0;
 		width: 100%;
@@ -30,13 +27,12 @@ body {
 		cursor: cursor;
 		cursor: hand;
 		position:absolute;
-		/*left: 0;
-		position: absolute;
-		top: 0;*/
 	}
 
-		#map div {
+		#map img {
 			float: left;
+			height: 256px;
+			width: 256px;
 		}
 
 	#minimap {
