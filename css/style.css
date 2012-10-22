@@ -71,6 +71,7 @@ body {
 				}
 
 				#menu li a img {
+					height: 24px;
 					left: 3;
 					position: absolute;
 					top: 3;
