@@ -1,0 +1,56 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>MapTest</title>
+	<link rel="stylesheet" href="css/layout.css" type="text/css" />
+<link rel="stylesheet" href="css/touchmycity.css" />
+<link rel="stylesheet" href="css/jquery-ui.css" type="text/css" />
+<!--<link rel="stylesheet" type="text/css" href="css/globo.css" />
+<link rel="stylesheet" type="text/css" href="css/animate.css" />
+<link rel="stylesheet" type="text/css" href="css/estilo-acordeon.css" />
+<link rel="stylesheet" type="text/css" href="css/dianoche.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/elastislide.css" />-->
+</head>
+
+<body>
+
+<div id="content" style="position:absolute;top:0px;left:0px;width:12000px;z-index:5;">
+<div class="map-wrap">
+	<div id="tmcMap" style="z-index:0">              
+	<img src="images/grey.gif" class="lazy"  data-original="images/grid/grid.jpg" width="1000" height="500" /><img src="images/grey.gif" class="lazy"  data-original="images/grid/grid-02.jpg" width="1000" height="500" /><img src="images/grey.gif" class="lazy"  data-original="images/grid/grid-03.jpg" width="1000" height="500" /><img src="images/grey.gif" class="lazy"  data-original="images/grid/grid-04.jpg" width="1000" height="500" />
+
+	<img src="images/grey.gif" class="lazy"  data-original="images/grid/grid-05.jpg" width="1000" height="500" /><img src="images/grey.gif" class="lazy"  data-original="images/grid/grid-06.jpg" width="1000" height="500" /><img src="images/grey.gif" class="lazy"  data-original="images/grid/grid-07.jpg" width="1000" height="500" /><img src="images/grey.gif" class="lazy"  data-original="images/grid/grid-08.jpg" width="1000" height="500" />
+          <img src="images/youarehere.png" id="capa3" style="z-index:3; position:absolute; left: 460px; top: 880px;"/>          
+   </div><!-- tmcMap -->
+</div><!-- map-wrap -->
+</div><!--#content-->
+
+</body>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.0/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/jquery-ui-1.8.22.custom.min.js"></script>
+<!--<script src="js/tmcMap.js"></script>-->
+<script src="js/jquery.lazyload.js"></script>
+<script src="js/jquery.effects.core.js"></script> 
+<script src="js/jquery.easing.1.3.js"></script>
+<script src="js/jquery.doubletap.js"></script>
+<script src="http://demos.flesler.com/jquery/scrollTo/js/jquery.scrollTo-min.js"></script>
+<script type="text/javascript" src="js/scrollsync.js"></script>
+<script type="text/javascript" src="js/dragscrollable.js"></script>
+<script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="js/jquery.elastislide.js"></script>
+
+<script>
+$(document).ready(function() {
+		
+		$("img").attr("width","2980");$("img").attr("height","1930");
+		$("#capa3").attr("width","150");$("#capa3").attr("height","120");
+		
+          $(".lazy").lazyload( {
+		     effect       : "fadeIn",threshold : 100
+		 });
+
+      });
+</script>
+</html>
