@@ -39,7 +39,7 @@ $(document).ready(function() {
 	 	failure_limit : $(".lazy").length+10
  	});
 
-	$("div").css("overflow","");
+	//$("div").css("overflow","");
 
 	/*$("img.lazy").each(function() {
 		$(this).attr("src", $(this).data("original"));
