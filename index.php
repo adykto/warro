@@ -13,7 +13,7 @@
 	// crear el menú de mapas
 	if ($mapsHandle = opendir($mapsPath)) {
 		while (false !== ($entry = readdir($mapsHandle))) {
-			if ($entry != "." && $entry != ".." && strpos($entry, '.jpg') > 1 && strpos($entry, 'thumb') < 1) {
+			if ($entry != "." && $entry != ".." && strpos($entry, '.jpg') > 1 && (strpos($entry, '_') < -1)) {
 				$entry = basename($entry, '.jpg');
 				$thumbFileName = $mapsPath.'_thumb_'.$entry.'.jpg';
 				$menu.= '<li><a href="?name='.$entry.'"><img src="'.$thumbFileName.'" /><span>'.ucwords($entry).'</span></a></li>';
@@ -27,6 +27,7 @@
 
 	$mapFileName = $mapsPath.$mapName.'.jpg';
 	$thumbFileName = $mapsPath.'_thumb_'.$mapName.'.jpg';
+	$holdFileName = $mapsPath.'_hold_'.$mapName.'.jpg';
 	$lockerFile = $mapsPath.'_md5_'.$mapName.'.lck';
 	$tileFileTemplate = $tilesPath.$mapName.'_%03d_%03d_%03d.jpg';
 
@@ -47,11 +48,14 @@
 	}
 
 	list($mapWidth, $mapHeight, $mapType, $mapAttr) = getimagesize($mapFileName);
-	$thumbHeight = 1024;
+	$thumbHeight = 32;
 	$thumbWidth = floor($mapWidth * ( $thumbHeight / $mapHeight ));
+	$holdHeight = 512;
+	$holdWidth = floor($mapWidth * ( $holdHeight / $mapHeight ));
+
 	$tilesCountX = ceil($mapWidth / $tileWidth);
 	$tilesCountY = ceil($mapHeight / $tileHeight);
-	$minimapStyle = 'width:'.($thumbWidth / 8).'px;background-image:url('.$thumbFileName.');';
+	$minimapStyle = 'width:'.($holdWidth / 4).'px;background-image:url('.$holdFileName.');';
 
 	if($createTiles) {
 		$mapImage = imagecreatefromjpeg($mapFileName);
@@ -61,6 +65,13 @@
 		imageinterlace($thumbImage, true);
 		imagejpeg($thumbImage, $thumbFileName, 80);
 		imagedestroy($thumbImage);
+
+		$holdImage = imagecreatetruecolor($holdWidth, $holdHeight);
+
+		imagecopyresampled($holdImage, $mapImage, 0, 0, 0, 0, $holdWidth, $holdHeight, $mapWidth, $mapHeight);
+		imageinterlace($holdImage, true);
+		imagejpeg($holdImage, $holdFileName, 80);
+		imagedestroy($holdImage);
 	}
 ?><html>
 	<head>
@@ -71,13 +82,12 @@
 		<script src="http://code.jquery.com/ui/1.9.0/jquery-ui.js"></script>
 		<link href="http://code.jquery.com/ui/1.9.0/themes/base/jquery-ui.css" type="text/css" rel="stylesheet" />
 		<link href="css/style.css" type="text/css" rel="stylesheet" />
-		<link href="css/tmcMap.css" type="text/css" rel="stylesheet" />
 		<script src="js/jquery.lazyload.js"></script>
 		<script src="js/jquery.viewport.js"></script>
 		<script src="js/jquery.effects.core.js"></script>
 		<script src="js/jquery.easing.1.3.js"></script>
 		<script src="js/jquery.doubletap.js"></script>
-		<script src="http://demos.flesler.com/jquery/scrollTo/js/jquery.scrollTo-min.js"></script>
+		<script src="js/modernizr-2.min.js"></script>
 		<script type="text/javascript" src="js/scrollsync.js"></script>
 		<script type="text/javascript" src="js/dragscrollable.js"></script>
 		<script type="text/javascript" src="js/jquery.tmpl.min.js"></script>
@@ -86,7 +96,7 @@
 	<body>
 		<div id="container">
 			<div class="map-viewport">
-				<div id="map" style="height: <?php echo $mapHeight; ?>px; width: <?php echo $mapWidth; ?>px; background-image: url('<?php echo $thumbFileName; ?>')">
+				<div id="map" style="height: <?php echo $mapHeight; ?>px; width: <?php echo $mapWidth; ?>px; background-image: url('<?php echo $holdFileName; ?>')">
 					<div style="height: <?php echo $tilesCountY * $tileHeight; ?>px; width: <?php echo $tilesCountX * $tileWidth; ?>px;">					<?php
 						if($createTiles) {
 							$tileImage = imagecreatetruecolor($tileWidth, $tileHeight);
