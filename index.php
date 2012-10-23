@@ -59,7 +59,7 @@
 
 		imagecopyresampled($thumbImage, $mapImage, 0, 0, 0, 0, $thumbWidth, $thumbHeight, $mapWidth, $mapHeight);
 		imageinterlace($thumbImage, true);
-		imagejpeg($thumbImage, $thumbFileName);
+		imagejpeg($thumbImage, $thumbFileName, 80);
 		imagedestroy($thumbImage);
 	}
 ?><html>
@@ -101,7 +101,7 @@
 									$mapOffsetX = $tileOffsetX * $tileWidth;
 									$mapOffsetY = $tileOffsetY * $tileWidth;
 									imagecopy($tileImage, $mapImage, 0, 0, $mapOffsetX, $mapOffsetY, $tileWidth, $tileHeight);
-									imagejpeg($tileImage, $tileFileName);
+									imagejpeg($tileImage, $tileFileName, 68);
 								}
 								echo '<img src="css/images/empty.png" data-original=', $tileFileName,' />';
 							}
