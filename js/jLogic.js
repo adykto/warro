@@ -1,15 +1,21 @@
-$(document).ready(function() {
-	var element = $('.map-viewport').viewport();
-	var content = element.viewport('content');
+var element = $('.map-viewport').viewport(),
+	content = element.viewport('content'),
+	mapDiv = $('#map'),
+	mapHeight = mapDiv.height(),
+	mapWidth = mapDiv.width(),
+	minimapHeight = $('#minimap').height(),
+	minimapWidth = $('#minimap').width(),
+	visorScale = mapWidth / minimapWidth,
+	dragTimer = null;
 
+$(document).ready(function() {
 	content.draggable({
 		containment: 'parent',
-		stop: refreshMinimap
+		drag: visorDrag
 	});
 
 	$('#minimapVisor').draggable({
 		containment: 'parent',
-		stop: function(event,ui){$(window).resize();},
 		drag: visorDrag
 	});
 
@@ -19,22 +25,40 @@ $(document).ready(function() {
 	});
 
 	$('#minimap').on('click', mapClicked);
-	$(window).resize(refreshMinimap);
-	refreshMinimap();
+
+	$('#rollupMinimap').on('click', function(){
+		$('#minimap').slideToggle(1000);
+		$('#minimapVisor').fadeToggle(500);
+	});
+
+	$('#rollupMenu').on('click', function(){
+		$('#menu').slideToggle(1000);
+	});
+
+	$('#toolwindow').css('width', $('#minimap').width());
+	$('#menu').slideToggle(2000);
+
+	syncMaps();
 	initTouchEvents();
+	$(window).resize(refreshMinimap);
 });
 
+function syncMaps() {
+	refreshMinimap();
+	$(window).resize();
+}
+
 function visorDrag(e) {
-	var mapDiv = $('#map'),
-		mapHeight = mapDiv.height(),
-		mapWidth = mapDiv.width(),
-		minimapHeight = $('#minimap').height(),
-		minimapWidth = $('#minimap').width(),
-		visorScale = mapWidth / minimapWidth,
-		visibleHeight = $('#container').height(),
+	var visibleHeight = $('#container').height(),
 		visibleWidth = $('#container').width(),
 		x = mapWidth - Math.ceil((this.offsetLeft) * visorScale) - visibleWidth,
 		y = mapHeight - Math.ceil((this.offsetTop) * visorScale) - visibleHeight;
+
+	if(dragTimer != null) {
+		clearTimeout(dragTimer);
+	}
+
+	dragTimer = setTimeout(function(){$(window).resize();}, 700);
 
 	if(x < 0) {
 		x = 0;
@@ -53,18 +77,11 @@ function visorDrag(e) {
 		'top': y + 'px',
 	});
 
-	//$(window).resize();
 	return true;
 }
 
 function mapClicked(e) {
-	var mapDiv = $('#map'),
-		mapHeight = mapDiv.height(),
-		mapWidth = mapDiv.width(),
-		minimapHeight = $('#minimap').height(),
-		minimapWidth = $('#minimap').width(),
-		visorScale = mapWidth / minimapWidth,
-		visibleHeight = $('#container').height(),
+	var visibleHeight = $('#container').height(),
 		visibleWidth = $('#container').width(),
 		x = mapWidth - Math.ceil((e.pageX - this.offsetLeft) * visorScale) - (visibleWidth / 2),
 		y = mapHeight - Math.ceil((e.pageY - this.offsetTop) * visorScale) - (visibleHeight / 2);
@@ -88,7 +105,7 @@ function mapClicked(e) {
 		'top': y + 'px',
 	});
 
-	$(window).resize();
+	syncMaps();
 }
 
 function refreshMinimap() {

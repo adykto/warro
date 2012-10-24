@@ -26,7 +26,7 @@ body {
 	#map {
 		background-image: url('maps/_thumb_map.jpg');
 		background-size: 100%;
-		cursor: hand;
+		cursor: move;
 		position:absolute;
 	}
 		#map div {
@@ -43,74 +43,89 @@ body {
 			width: 256px;
 		}
 
-	#minimap {
-		background-image: url('maps/_thumb_map.jpg');
-		background-size: 100%;
+	#toolwindow {
+		background: rgba(0,0,0,0.8);
 		box-shadow: 0 0 30px 3px #000;
 		display: block;
-		height: 128px;
-		right: 0px;
-		opacity: 0.9;
-		overflow: hidden;
 		position: absolute;
+		right: 0px;
 		top: 0px;
 		z-index: 9999;
 	}
 
-		#minimapVisor {
-			box-shadow: 0 0 200px 220px #000;
-			border: 1px solid #333;
-			cursor: move;
-			display: block;
-			left: 0;
-			opacity: 0.8;
-			position: absolute;
-			top: 0;
-			z-index: 999;
+		#rollupMinimap, #rollupMenu {
+			border-bottom: 1px dashed #444;
+			border-top: 1px dotted #444;
+			cursor: pointer;
+			height: 3px;
+			margin: 4px 0;
 		}
 
-	#menu {
-		box-shadow: 0 0 30px 3px #000;
-		left: 0px;
-		line-height: 32px;
-		list-style-type: none;
-		margin: 0;
-		padding: 0;
-		position: fixed;
-		top: 0px;
-	}
+			#rollupMinimap:hover, #rollupMenu:hover {
+				border-bottom: 1px dashed #999;
+				border-top: 1px dotted #999;
+			}
 
-		#menu li {
-			background: rgba(0,0,0,0.8);
+		#minimap {
+			background-image: url('maps/_thumb_map.jpg');
+			background-size: 100%;
+			display: block;
+			height: 128px;
+			overflow: hidden;
+		}
+
+			#minimapVisor {
+				box-shadow: 0 0 30px 10px #000;
+				border: 1px solid #333;
+				cursor: move;
+				display: block;
+				left: 0;
+				opacity: 0.8;
+				position: absolute;
+				top: 0;
+				z-index: 999;
+			}
+
+		#menu {
+			font-size: 12px;
+			left: 0px;
+			line-height: 24px;
+			list-style-type: none;
 			margin: 0;
 			padding: 0;
 		}
 
-			#menu li a {
-				color: #ccc;
-				display: block;
-				height: 32px;
+			#menu li {
+				margin: 0;
+				margin-bottom: 4px;
 				padding: 0;
-				position: relative;
-				text-decoration: none;
-				width: 200px;
 			}
 
-				#menu li a:hover {
-					background: #000;
-					color: #fff;
-				}
-
-				#menu li a img {
-					height: 24px;
-					left: 3;
-					position: absolute;
-					top: 3;
-				}
-
-				#menu li a span {
+				#menu li a {
+					color: #666;
 					display: block;
-					left: 72px;
-					position: absolute;
-					top: 0;
+					height: 24px;
+					overflow: hidden;
+					padding: 0;
+					position: relative;
+					text-decoration: none;
 				}
+
+					#menu li a:hover {
+						background: #000;
+						color: #ccc;
+					}
+
+					#menu li a img {
+						width: 48px;
+						left: 0;
+						position: absolute;
+						top: 0;
+					}
+
+					#menu li a span {
+						display: block;
+						left: 62px;
+						position: absolute;
+						top: 0;
+					}

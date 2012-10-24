@@ -130,8 +130,12 @@
 				</div>
 			</div>
 		</div>
-		<ul id="menu"><?php echo $menu; ?></ul>
-		<div id="minimap" style="<?php echo $minimapStyle; ?>"><div id="minimapVisor"></div></div>
+		<div id="toolwindow">
+			<div id="minimap" style="<?php echo $minimapStyle; ?>"><div id="minimapVisor"></div></div>
+			<div id="rollupMinimap"></div>
+			<ul id="menu"><?php echo $menu; ?></ul>
+			<div id="rollupMenu"></div>
+		</div>
 		<script type="text/javascript" src="js/jLogic.js"></script>
 	</body>
 
