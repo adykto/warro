@@ -46,16 +46,18 @@ body {
 	#toolwindow {
 		background: rgba(0,0,0,0.8);
 		box-shadow: 0 0 30px 3px #000;
+		cursor: move;
 		display: block;
+		padding-top: 10px;
 		position: absolute;
-		right: 0px;
+		left: 0px;
 		top: 0px;
 		z-index: 9999;
 	}
 
 		#rollupMinimap, #rollupMenu {
-			border-bottom: 1px dashed #444;
-			border-top: 1px dotted #444;
+			border-bottom: 1px dashed #666;
+			border-top: 1px dotted #666;
 			cursor: pointer;
 			height: 3px;
 			margin: 4px 0;
@@ -69,8 +71,10 @@ body {
 		#minimap {
 			background-image: url('maps/_thumb_map.jpg');
 			background-size: 100%;
+			cursor: default;
 			display: block;
 			height: 128px;
+			position: relative;
 			overflow: hidden;
 		}
 

@@ -55,7 +55,7 @@
 
 	$tilesCountX = ceil($mapWidth / $tileWidth);
 	$tilesCountY = ceil($mapHeight / $tileHeight);
-	$minimapStyle = 'width:'.($holdWidth / 4).'px;background-image:url('.$holdFileName.');';
+	$minimapStyle = 'width:'.(int)($holdWidth / 4).'px;background-image:url('.$holdFileName.');';
 
 	if($createTiles) {
 		$mapImage = imagecreatefromjpeg($mapFileName);
